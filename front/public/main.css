@@ -1,0 +1,17 @@
+.vs {
+    font-family: 'Bangers', cursive;
+    color: red;
+    font-size: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.title {
+    font-family: 'Bowlby One SC', cursive;
+}
+
+.applauseGif {
+    width: 150px;
+    height: 150px;
+    margin-left: 10px;
+}

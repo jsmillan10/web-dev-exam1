@@ -5,34 +5,62 @@ var MongoClient = require("mongodb").MongoClient
 
 // Connection URL
 var url = "mongodb://practica:practica@ds261678.mlab.com:61678/practica";
-var baseUrl = "https://www.instagram.com/";
-var endOfUrl= "/?__a=1";
 
-
-router.get("/:user", function(req, res){
-	fetch(baseUrl + req.params.user + endOfUrl)
-		.then((error, response, body) => {
-			if(!error && response.statusCode == "200"){
-				console.log(body);
-			}
+router.post("/fightResults", function(req, res){
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		console.log("Connected successfully to server");
+		var collection = db.collection("history");
+		collection.insert({
+			fighter1: req.body.fighter1,
+			fighter2: req.body.fighter2,
+			winner: req.body.winner
+		}, (err, result) => {
+			assert.equal(null, err);
+			res.status("200");
 		});
+		db.close();
+	  });	  
 });
 
+router.post("/max", function(req, res){
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		console.log("Connected successfully to server");
+		var collection = db.collection("max");
+		collection.insert({
+			user: req.body.user,
+			likes: req.body.likes,
+			picture: req.body.picture
+		}, (err, result) => {
+			assert.equal(null, err);
+			res.status("200");
+		});
+		db.close();
+	  });	  
+});
 
-var findDocuments = function(db, query, callback) {
-	// Get the documents collection
-	var collection = db.collection("users");
-	// Find some documents
-	collection.find(query).toArray(function(err, docs) {
-		assert.equal(err, null);
-		console.log("Found the following records");
-		console.log(docs);
-		callback(docs);
+router.get("/max", function(req, res){
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		console.log("Connected successfully to server");
+		var collection = db.collection("max");
+		collection.find().sort({age:-1}).limit(1).toArray(function(err, docs){
+			assert.equal(err, null);
+			res.json(docs);
+		});
 	});
-};
-// Use connect method to connect to the server
+});
 
-
-
-
+router.get("/stats", function(req, res){
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		console.log("Connected successfully to server");
+		var collection = db.collection("history");
+		collection.find({}).toArray(function(err, docs){
+			assert.equal(err, null);
+			res.json(docs);
+		});
+	});
+});
 module.exports = router;

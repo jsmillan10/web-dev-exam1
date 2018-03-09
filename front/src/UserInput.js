@@ -2,19 +2,20 @@ import React, {Component} from "react";
 
 export class UserInput extends Component{
 
-    constructor(props){
-        super(props);
-        this.handdleChange = this.handdleChange.bind(this);
-    }
+	constructor(props){
+		super(props);
+		this.handleCahnge = this.handleCahnge.bind(this);
+	}
 
-    handdleChange(e){
-        var name = e.target.value;
-        this.props.onChange(name);
-    }
+	handleCahnge(e){
+		var name = e.target.value;
+		console.log(name);
+		this.props.onChange(name);
+	}
 
-    render(){
-        return(
-            <input type="text" onChange={this.handleCahnge} />
-        )
-    }
+	render(){
+		return(
+			<input type="text" onChange={this.handleCahnge} />
+		);
+	}
 }
