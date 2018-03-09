@@ -1,7 +1,7 @@
 # Instagram Fight
 The purpose of this project was to create a website that compares the total number of likes of the pictures of each of the contestants and determine who has more likes. 
 # Creativity
-If yo click the "Show most liked pic" button the page will show the picture with most likes of the total of instagram users that have participated.
+If you click the "Show most liked pic" button the page will show the picture with most likes of the total of instagram users that have participated.
 ## Getting Started
 To get a copy of these repository install git bash, open it from the command line and use 
 $ git clone: https://github.com/ne-cabrera/web-dev-exam1.git
