@@ -46,8 +46,24 @@ $ npm install
 Go to the frontend directory and run the npm install command.
 
 ```
-$ cd frontend
+$ cd front
 $ npm install
+```
+Return to the root dirctory and run nodemon server.js
+
+### Running
+
+Go to the root directory and run the npm start command.
+
+```
+$ npm start
+```
+
+Go to the front directory and run the npm install command.
+
+```
+$ cd front
+$ npm start
 ```
 Return to the root dirctory and run nodemon server.js
 
