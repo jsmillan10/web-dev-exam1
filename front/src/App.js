@@ -46,8 +46,8 @@ class App extends Component {
 			.then( res => res.json())
 			.then( d => {
 				let n = 0;
-				for(let i of d.user.media.nodes){
-					n += i.likes.count;
+				for(let i of d.graphql.user.edge_owner_to_timeline_media.edges){
+					n += i.node.edge_liked_by.count;
 				}
 				return {number: n, user: d };
 			})
@@ -56,8 +56,8 @@ class App extends Component {
 					.then(r => r.json())
 					.then(resJs => {
 						let num = 0;
-						for(let i of resJs.user.media.nodes){
-							num += i.likes.count;
+						for(let i of resJs.graphql.user.edge_owner_to_timeline_media.edges){
+							num += i.node.edge_liked_by.count;
 						}
 						var theWinner = usr.number > num ? this.state.firstUser : this.state.secondUser;
 						var theLoser = usr.number < num ? this.state.firstUser : this.state.secondUser;
@@ -92,10 +92,10 @@ class App extends Component {
 		if (this.state.winnerUsr !== prevState.winnerUsr) {
 			let max = 0;
 			let pic ="";
-			for(let i of this.state.winnerUsr.user.media.nodes){
-				if(i.likes.count > max){
-					max = i.likes.count;
-					pic = i.thumbnail_src;
+			for(let i of this.state.winnerUsr.graphql.user.edge_owner_to_timeline_media.edges){
+				if(i.node.edge_liked_by.count > max){
+					max = i.node.edge_liked_by.count;
+					pic = i.node.thumbnail_src;
 				}
 			}
 			fetch("/max", {
@@ -112,10 +112,10 @@ class App extends Component {
 		if(this.state.loserUsr !== prevState.loserUsr){
 			let max = 0;
 			let pic ="";
-			for(let i of this.state.loserUsr.user.media.nodes){
-				if(i.likes.count > max){
-					max = i.likes.count;
-					pic = i.thumbnail_src;
+			for(let i of this.state.loserUsr.graphql.user.edge_owner_to_timeline_media.edges){
+				if(i.node.edge_liked_by.count > max){
+					max = i.node.edge_liked_by.count;
+					pic = i.node.thumbnail_src;
 				}
 			}
 			fetch("/max", {
@@ -157,7 +157,7 @@ class App extends Component {
 						<button type="button" onClick={this.handleClick} className="btn btn-danger">Fight</button>
 					</div>
 					<div className="row">
-						{ this.state.ganador != "" ?  <Winner winner={this.state.ganador} profilePic={this.state.winnerUsr.user.profile_pic_url}/> : <div></div>}
+						{ this.state.ganador != "" ?  <Winner winner={this.state.ganador} profilePic={this.state.winnerUsr.graphql.user.profile_pic_url}/> : <div></div>}
 					</div>
 					<div className="row">
 						<button type="button" onClick={this.handleClickHistory} className="btn btn-success">Show History</button>
